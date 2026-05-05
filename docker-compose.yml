@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  museum-web:
+    build:
+      context: . # Папка сборки
+      dockerfile: Dockerfile # Инструкции к сборке
+    container_name: museum-paleontology-app
+    ports:
+      - "${APP_PORT}:8008" # Вариант 08
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production 
+      - ASPNETCORE_URLS=http://+:8008
+    volumes: # Подключение внешней конфигурации через volumes
+      - museum-db:/app       
+    restart: unless-stopped   
+    healthcheck: # Настройка healthcheck для контейнера
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:8008/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    networks:
+      - museum-net
+
+volumes:
+  museum-db:
+    driver: local
+
+networks:
+  museum-net:
+    driver: bridge

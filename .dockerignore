@@ -1,0 +1,22 @@
+# Временные файлы сборки
+bin/
+obj/
+
+# Файлы Visual Studio и системные
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Файлы Git 
+.git/
+.gitignore
+.gitattributes
+
+# Документация и прочее
+README.md
+*.md
+*.db-shm
+*.db-wal
